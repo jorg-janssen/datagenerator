@@ -4,18 +4,18 @@ import random
 import datetime
 import py2sql
 
-AANTAL_BEDRIJVEN = 40   # minimaal 10
-AANTAL_SCHEPEN = 60      # minimaal 3
-AANTAL_VISSOORTEN = 20  # minimaal 10
-AANTAL_LANDEN = 8       # minmiaal 6
-AANTAL_VISTOCHTEN = 5   # minimaal 5
+AANTAL_BEDRIJVEN = 98   # minimaal 10
+AANTAL_SCHEPEN = 1365      # minimaal 3
+AANTAL_VISSOORTEN = 88  # minimaal 10
+AANTAL_LANDEN = 19       # minmiaal 6
+AANTAL_VISTOCHTEN = 20   # minimaal 5
 
 bron_landen = json.load(open('datafiles/landen.json', 'r'))
 bron_bedrijven = json.load(open('datafiles/bedrijven.json', 'r'))
 bron_schepen = json.load(open('datafiles/schepen.json', 'r'))
 bron_vissoorten = json.load(open('datafiles/vissoorten.json', 'r'))
 bron_datums = [datetime.date(2016, 1, 1)]
-while bron_datums[-1] != datetime.date(2021, 12, 31):
+while bron_datums[-1] != datetime.date(2023, 12, 31):
     nieuw = bron_datums[-1] + datetime.timedelta(days=1)
     bron_datums.append(nieuw)
 
@@ -75,6 +75,7 @@ def __main__():
     print ("LAND: ", py2sql.list2sql2file('LAND', landen, file))    
     print ("BEDRIJF: ", py2sql.list2sql2file('BEDRIJF', bedrijven, file))    
     print ("SCHIP: ", py2sql.list2sql2file('SCHIP', schepen, file)) 
+    # print ("VISSOORT: ", py2sql.list2sql2file('VISSOORT', vissoorten, file))  
     
     # plaats random factoren
     for land in landen:
@@ -133,7 +134,7 @@ def genereer_vislicenties(file, schepen, landen, vissoorten):
             
             for land in random.sample(landen, k = int(AANTAL_LANDEN/2)): # de helft van de landen
           
-                for vis in random.sample(vissoorten, k = int(AANTAL_VISSOORTEN/2)):  # de helft van de vissoorten                 
+                for vis in random.sample(vissoorten, k = int(AANTAL_VISSOORTEN/20)):  # de helft van de vissoorten                 
           
                     begindatum = datetime.date(2016, 1, 1) - datetime.timedelta(days=random.randrange(0,1000)) # een paar wisselingen
                     einddatum = datetime.date(2016, 1, 1)
